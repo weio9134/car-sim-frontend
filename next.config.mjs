@@ -7,12 +7,8 @@ const nextConfig = {
         destination: 'http://127.0.0.1:5000/connect',
       },
       {
-        source: '/send_message',
-        destination: 'http://127.0.0.1:5000/send_message',
-      },
-      {
-        source: '/start',
-        destination: 'http://127.0.0.1:5000/start',
+        source: '/settings',
+        destination: 'http://127.0.0.1:5000/settings',
       },
       {
         source: '/get_state',
