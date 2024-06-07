@@ -1,9 +1,11 @@
-export type Cars = {
+export type Car = {
   alive: boolean,
   angle: number,
   center: number[],
+  corners: number[][],
   id: number,
-  position: number[]
+  position: number[],
+  radars: number[]
 }
 
 export type PieceProps = {
@@ -19,9 +21,19 @@ export type BoardProps = {
   board: number[][],
   setHasGreen: React.Dispatch<React.SetStateAction<boolean>>,
   block: boolean,
-  cars: Cars[]
+  cars: Car[],
+  setCars: React.Dispatch<React.SetStateAction<Car[]>>,
 }
 
 export type DrawProps = {
-  cars: Cars[]
+  cars: Car[],
+  map: number[][],
+  setCars: React.Dispatch<React.SetStateAction<Car[]>>,
+}
+
+export type DisplayCarProp = {
+  car: Car,
+  map: number[][],
+  group: Car[],
+  setGroup: React.Dispatch<React.SetStateAction<Car[]>>,
 }

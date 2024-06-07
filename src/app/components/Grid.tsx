@@ -40,7 +40,7 @@ const Piece = ({x, y, v, board, setHasGreen}: PieceProps) => {
 }
 
 
-const Grid = ({ value, board, setHasGreen, block, cars }: BoardProps) => {
+const Grid = ({ value, board, setHasGreen, block, cars, setCars }: BoardProps) => {
   return (
     <>
       <div
@@ -49,7 +49,7 @@ const Grid = ({ value, board, setHasGreen, block, cars }: BoardProps) => {
       >
         { block && 
           <div id={`map-cover`} className={`absolute w-[600px] h-[600px] z-10`}>
-            <Draw cars={cars} />
+            <Draw cars={cars} setCars={setCars} map={board} />
           </div>
         }
 
@@ -60,7 +60,8 @@ const Grid = ({ value, board, setHasGreen, block, cars }: BoardProps) => {
               x={x} y={y}
               v={value}
               board={board}
-              setHasGreen={setHasGreen}/>
+              setHasGreen={setHasGreen}
+            />
           ))
         ))}
       </div>
