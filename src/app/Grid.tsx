@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import Draw from './Draw';
+import { PieceProps, BoardProps } from './Types';
 
-type Input = {
-  x: number,
-  y: number,
-  v: number,
-  board: number[][],
-  setHasGreen: React.Dispatch<React.SetStateAction<boolean>>
-}
-const Piece = ({x, y, v, board, setHasGreen}: Input) => {
+
+const Piece = ({x, y, v, board, setHasGreen}: PieceProps) => {
   const [color, setColor] = useState('white')
 
   const handleClick = () => {
@@ -43,21 +39,21 @@ const Piece = ({x, y, v, board, setHasGreen}: Input) => {
   )
 }
 
-type Value = {
-  value: number,
-  board: number[][],
-  setHasGreen: React.Dispatch<React.SetStateAction<boolean>>,
-  block: boolean
-}
-const Grid = ({ value, board, setHasGreen, block }: Value) => {
+
+const Grid = ({ value, board, setHasGreen, block, cars }: BoardProps) => {
   return (
     <>
       <div
         id={`board`}
         className='grid grid-cols-10 grid-rows-10 border-4 border-white'
       >
-        { block && <div id={`map-cover`} className={`absolute w-[600px] h-[600px] bg-black opacity-50`}/> }
-        {board.map((row: number[], x: number) => (
+        { block && 
+          <div id={`map-cover`} className={`absolute w-[600px] h-[600px] z-10`}>
+            <Draw cars={cars} />
+          </div>
+        }
+
+        { board.map((row: number[], x: number) => (
           row.map((cell: number, y: number) => (
             <Piece
               key={`${x}-${y}`}

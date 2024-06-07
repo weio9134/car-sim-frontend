@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect, useRef } from "react";
 import Grid from "./Grid";
-import Draw from "./Draw";
+import { Cars } from "./Types";
 
 const EMPTY_BOARD = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -15,14 +15,6 @@ const EMPTY_BOARD = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 ]
-
-type Cars = {
-  alive: boolean,
-  angle: number,
-  center: number[],
-  id: number,
-  position: number[]
-}
 
 export default function Home() {
   const [board, setBoard] = useState(EMPTY_BOARD)
@@ -137,8 +129,13 @@ export default function Home() {
         <p className={`mb`}>Status: {response}</p>
       </div>
       
-      <Grid value={gridValue} board={board} setHasGreen={setHasGreen} block={started} />
-      <Draw cars={carData} />
+      <Grid 
+        value={gridValue} 
+        board={board} 
+        setHasGreen={setHasGreen} 
+        block={started} 
+        cars={carData} 
+      />
 
     </main>
   );
