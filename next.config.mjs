@@ -26,6 +26,18 @@ const nextConfig = {
         source: '/test',
         destination: 'http://127.0.0.1:5000/test',
       },
+      {
+        source: '/update_cars',
+        destination: 'http://127.0.0.1:5000/update_cars',
+      },
+      {
+        source: '/update_population',
+        destination: 'http://127.0.0.1:5000/update_population',
+      },
+      {
+        source: '/stop',
+        destination: 'http://127.0.0.1:5000/stop',
+      },
     ];
   },
 };
