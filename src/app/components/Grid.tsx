@@ -3,7 +3,7 @@ import Draw from './Draw';
 import { PieceProps, BoardProps } from './Types';
 
 
-const Piece = ({x, y, v, board, setHasGreen}: PieceProps) => {
+const Piece = ({ x, y, v, board, setBoard, setHasGreen, reset }: PieceProps) => {
   const [color, setColor] = useState('white')
 
   const handleClick = () => {
@@ -24,7 +24,10 @@ const Piece = ({x, y, v, board, setHasGreen}: PieceProps) => {
       if (elem) elem.style.backgroundColor = "#00FF00";
       setHasGreen(true)
     }
+    setBoard(board)
   }
+
+  useEffect(() => { reset ? setColor('white') : setColor(color) }, [reset])
 
   return (
     <div
@@ -40,7 +43,7 @@ const Piece = ({x, y, v, board, setHasGreen}: PieceProps) => {
 }
 
 
-const Grid = ({ value, board, setHasGreen, block, cars, setCars }: BoardProps) => {
+const Grid = ({ value, board, setBoard, setHasGreen, block, cars, setCars, reset }: BoardProps) => {
   return (
     <>
       <div
@@ -60,7 +63,9 @@ const Grid = ({ value, board, setHasGreen, block, cars, setCars }: BoardProps) =
               x={x} y={y}
               v={value}
               board={board}
+              setBoard={setBoard}
               setHasGreen={setHasGreen}
+              reset={reset}
             />
           ))
         ))}
