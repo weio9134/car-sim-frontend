@@ -3,6 +3,7 @@ import { Car, DrawProps, DisplayCarProp } from './Types'
 import Image from 'next/image'
 import CarPNG from '/public/car.png'
 
+
 const DisplayCar = ({ car, map, group, setGroup } : DisplayCarProp) => {
   const [center, setCenter] = useState(car.center)
   const [corners, setCorners] = useState(car.corners)
@@ -24,14 +25,15 @@ const DisplayCar = ({ car, map, group, setGroup } : DisplayCarProp) => {
   const degToRad = (deg: number) => (deg * Math.PI) / 180.0
   const withinBound = (x: number, y: number) => {
     if(x < 0 || x > 600 || y < 0 || y > 600) return false
-    const col = Math.floor(x/60)
-    const row = Math.floor(y/60)
+    const col = Math.round(x/60)
+    const row = Math.round(y/60)
     return map[row][col] != 0
   }
 
   const update_car = () => {
     // check collision between all corners
     corners?.forEach((c: number[]) => {
+      console.log(c)
       if(!withinBound(c[0], c[1])) {
         car.alive = false
         return
@@ -61,10 +63,9 @@ const DisplayCar = ({ car, map, group, setGroup } : DisplayCarProp) => {
     if(car.alive) {
       setCenter(car.center)
       setCorners(car.corners)
+        console.log(car.id, car.alive, car.center, car.corners, corners)
       get_offset()
       update_car()
-
-      group[car.id -1 ] = car
       setGroup(group)
     }
   }, [car.center])
@@ -91,19 +92,6 @@ const DisplayCar = ({ car, map, group, setGroup } : DisplayCarProp) => {
 
 
 const Draw = ({ cars, map, setCars } : DrawProps) => {
-  const newCars = [...cars];
-
-  const DISPLAY = newCars?.map(car => (
-    car != null && car.alive && 
-    <DisplayCar 
-      car={car} 
-      map={map} 
-      key={car.id}
-      group={newCars}
-      setGroup={setCars}
-    />
-  ))
-
   const sendUpdatedCars = async () => {
     await fetch("/update_cars", {
       method: "POST",
@@ -111,16 +99,25 @@ const Draw = ({ cars, map, setCars } : DrawProps) => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({ 
-        "cars": newCars,
+        "cars": cars,
        })
     });
   }
-  
-  sendUpdatedCars()
 
+  sendUpdatedCars()
+  
   return (
     <>
-      {DISPLAY}
+     {cars?.map(car => (
+        car != null && car.alive && 
+        <DisplayCar 
+          car={car} 
+          map={map} 
+          key={`${car.id}-${car.position.join(',')}`}
+          group={cars}
+          setGroup={setCars}
+        />
+      ))}
     </>
   )
 }

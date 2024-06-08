@@ -8,22 +8,26 @@ export type Car = {
   radars: number[]
 }
 
-export type PieceProps = {
-  x: number,
-  y: number,
-  v: number,
-  board: number[][],
-  setHasGreen: React.Dispatch<React.SetStateAction<boolean>>
-}
-
 export type BoardProps = {
   value: number,
   board: number[][],
+  setBoard: React.Dispatch<React.SetStateAction<number[][]>>,
   setHasGreen: React.Dispatch<React.SetStateAction<boolean>>,
   block: boolean,
   cars: Car[],
   setCars: React.Dispatch<React.SetStateAction<Car[]>>,
-}
+  reset: boolean
+  }
+  
+  export type PieceProps = {
+    x: number,
+    y: number,
+    v: number,
+    board: number[][],
+    setBoard: React.Dispatch<React.SetStateAction<number[][]>>,
+    setHasGreen: React.Dispatch<React.SetStateAction<boolean>>,
+    reset: boolean
+  }
 
 export type DrawProps = {
   cars: Car[],
